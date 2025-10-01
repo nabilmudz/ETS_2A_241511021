@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\KomponenGajiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
     if (!$user) {
         return redirect()->route('auth.login');
     }
-    if ($user->role === 'admin') {
+    if ($user->role === 'Admin') {
         return redirect()->route('admin.dashboard');
     }
 
@@ -39,23 +40,34 @@ Route::prefix('/auth')->group(function () {
 Route::prefix('/dashboard')->group(function () {
     
     Route::prefix('/admin')
-        ->middleware(['auth', 'role:admin'])
+        ->middleware(['auth', 'role:Admin'])
         ->group(function () {
             
             Route::get('/', function () {
                 return view('admin.dashboard');
             })->name('admin.dashboard');
+            
+            Route::prefix('/anggota')->group(function () {
+                Route::get('/', [AnggotaController::class, 'index'])->name('admin.anggota.index');
+                Route::get('/create', [AnggotaController::class, 'create'])->name('admin.anggota.create');
+                Route::post('/', [AnggotaController::class, 'store'])->name('admin.anggota.store');
+                Route::get('/{anggota}', [AnggotaController::class, 'show'])->name('admin.anggota.show');
+                Route::get('/{anggota}/edit', [AnggotaController::class, 'edit'])->name('admin.anggota.edit');
+                Route::put('/{anggota}', [AnggotaController::class, 'update'])->name('admin.anggota.update');
+                Route::delete('/{anggota}', [AnggotaController::class, 'destroy'])->name('admin.anggota.destroy'); 
+            });
 
-            Route::prefix('/test')->group(function () {
-                Route::get('/', [TestController::class, 'index'])->name('admin.test.index');
-                Route::get('/create', [TestController::class, 'create'])->name('admin.test.create');
-                Route::post('/', [TestController::class, 'store'])->name('admin.test.store');
-                Route::get('/{test  }', [TestController::class, 'show'])->name('admin.test.show');
-                Route::get('/{test  }/edit', [TestController::class, 'edit'])->name('admin.test.edit');
-                Route::put('/{test  }', [TestController::class, 'update'])->name('admin.test.update');
-                Route::delete('/{test   }', [TestController::class, 'destroy'])->name('admin.test.destroy');
+            Route::prefix('/komponen-gaji')->group(function () {
+                Route::get('/', [KomponenGajiController::class, 'index'])->name('admin.komponen_gaji.index');
+                Route::get('/create', [KomponenGajiController::class, 'create'])->name('admin.komponen_gaji.create');
+                Route::post('/', [KomponenGajiController::class, 'store'])->name('admin.komponen_gaji.store');
+                Route::get('/{gaji}', [KomponenGajiController::class, 'show'])->name('admin.komponen_gaji.show');
+                Route::get('/{gaji}/edit', [KomponenGajiController::class, 'edit'])->name('admin.komponen_gaji.edit');
+                Route::put('/{gaji}', [KomponenGajiController::class, 'update'])->name('admin.komponen_gaji.update');
+                Route::delete('/{gaji}', [KomponenGajiController::class, 'destroy'])->name('admin.komponen_gaji.destroy'); 
             });
         });
+        
     Route::prefix('/admin')->group(function () {
         Route::get('/', function () {
             return view('admin.dashboard');

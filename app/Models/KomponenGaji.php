@@ -15,5 +15,7 @@ class KomponenGaji extends Model
         "nominal",
         "satuan",
     ];
-    
+    protected $table = "komponen_gaji";  
+    protected $primaryKey = "id_komponen_gaji";  
+    public $timestamps = false;
 }

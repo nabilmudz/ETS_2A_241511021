@@ -17,8 +17,12 @@ class Anggota extends Model
         "jabatan",
         "status_pernikahan",
     ];
+    protected $table = 'anggota';
+    protected $primaryKey = 'id_anggota';
     public function penggajian()
     {
         return $this->hasMany(Penggajian::class);
     }
+    
+    public $timestamps = false;
 }

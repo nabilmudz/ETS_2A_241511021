@@ -21,4 +21,6 @@ class Penggajian extends Model
     {
         return $this->belongsTo(Anggota::class);
     }
+    
+    public $timestamps = false;
 }
