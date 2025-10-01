@@ -20,7 +20,7 @@
           <tr class="bg-gray-100 text-left text-gray-700 uppercase text-sm">
             <th class="p-3">Nama Depan</th>
             <th class="p-3">Nama Belakang</th>
-            <th class="p-3">Gelar Depatn</th>
+            <th class="p-3">Gelar Depan</th>
             <th class="p-3 text-center">Gelar Belakang</th>
             <th class="p-3 text-center">Jabatan</th>
             <th class="p-3 text-center">Status Pernikahan</th>

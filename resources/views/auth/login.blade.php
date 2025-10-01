@@ -1,18 +1,13 @@
 <x-guest-layout>
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <p class="text-center text-black text-3xl mt-4 mb-6">Login</p>
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
-        <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-
-        <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
 
@@ -31,8 +26,6 @@
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
-            <a class="text-black text-sm" href="{{ route("auth.register") }}">Don't hava account? <span class="underline">Register  </span></a>
 
             <x-primary-button class="ml-3">
                 {{ __('Log in') }}

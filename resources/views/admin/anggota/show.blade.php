@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="container flex items-center justify-center h-screen mt-12">
-        <div class="mt-12">
+    <div class="container flex items-center justify-center h-screen">
+        <div>
             <h1>Detail Anggota</h1>
             
             <div class="card p-4">

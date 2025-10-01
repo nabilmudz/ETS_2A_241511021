@@ -78,7 +78,7 @@ class KomponenGajiController extends Controller
     public function update(Request $request, KomponenGaji $komponenGaji)
     {
         $komponenGaji->update($request->all());
-        return redirect()->route('admin.komponen_gaji.index')->with('success', 'anggota updated.');
+        return redirect()->route('admin.komponen_gaji.index')->with('success', 'Komponen Gaji updated.');
     }
 
     /**
@@ -90,6 +90,6 @@ class KomponenGajiController extends Controller
     public function destroy(KomponenGaji $komponenGaji)
     {
         $komponenGaji->delete();
-        return redirect()->route('admin.komponen_gaji.index')->with('success', 'anggota deleted.');
+        return redirect()->route('admin.komponen_gaji.index')->with('success', 'Komponen Gaji deleted.');
     }
 }

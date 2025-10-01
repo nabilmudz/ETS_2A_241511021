@@ -6,13 +6,19 @@
                     <p class="text-2xl text-black font-bold mr-10   ">ETS Proyek 3</p>
                 </div>
 
-                @if(Auth::user()->role === 'admin')
+                @if(Auth::user()->role === 'Admin')
+                <div class=" gap-8 mt-4">
+                    
                     <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.users')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.test.index')" :active="request()->routeIs('test.*')">
-                        {{ __('Tests') }}
+                    <x-nav-link :href="route('admin.anggota.index')" :active="request()->routeIs('anggota.*')">
+                        {{ __('Anggota') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.komponen_gaji.index')" :active="request()->routeIs('komponen_gaji.*')">
+                        {{ __('Komponen Gaji') }}
+                    </x-nav-link>
+                </div>
                 @endif
 
                 @if(Auth::user()->role === 'user')
@@ -27,7 +33,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>{{ Auth::user()->username }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

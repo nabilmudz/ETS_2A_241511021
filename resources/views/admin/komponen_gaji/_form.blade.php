@@ -1,68 +1,66 @@
 @csrf
 <div class="flex items-center justify-center h-screen px-4">
     <div class="w-full max-w-lg bg-white p-6 rounded-lg shadow">
-        <h1 class="text-2xl font-bold mb-6 text-center">Form Anggota</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center">Form Komponen Gaji</h1>
             <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Nama Depan</label>
+                <label class="mb-1 font-semibold">Nama Komponen</label>
                 <input type="text" name="nama_depan" 
-                       value="{{ old('nama_depan', $anggota->nama_depan ?? '') }}"
+                       value="{{ old('nama_depan', $komponenGaji->nama_depan ?? '') }}"
                        class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 @error('nama_depan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
 
             <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Nama Belakang</label>
-                <input type="text" name="nama_belakang" 
-                       value="{{ old('nama_belakang', $anggota->nama_belakang ?? '') }}"
-                       class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                <label class="mb-1 font-semibold">Kategori</label>
+                <select name="kategori" 
+                        class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="">-- Pilih Kategori --</option>
+                    @foreach(['Gaji Pokok','Tunjangan Melekat','Tunjangan Lain'] as $kategori)
+                        <option value="{{ $kategori }}" 
+                            {{ old('kategori', $komponenGaji->kategori ?? '') == $kategori ? 'selected' : '' }}>
+                            {{ $kategori }}
+                        </option>
+                    @endforeach
+                </select>
                 @error('nama_belakang') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
 
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Gelar Depan</label>
-                <input type="text" name="gelar_depan" 
-                       value="{{ old('gelar_depan', $anggota->gelar_depan ?? '') }}"
-                       class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                @error('gelar_depan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Gelar Belakang</label>
-                <input type="text" name="gelar_belakang" 
-                       value="{{ old('gelar_belakang', $anggota->gelar_belakang ?? '') }}"
-                       class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                @error('gelar_belakang') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
-
-            {{-- Jabatan Dropdown --}}
             <div class="flex flex-col">
                 <label class="mb-1 font-semibold">Jabatan</label>
                 <select name="jabatan" 
                         class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="">-- Pilih Jabatan --</option>
-                    @foreach(['Ketua','Wakil Ketua','Anggota'] as $jabatan)
+                    @foreach(['Ketua','Wakil Ketua','komponenGaji', 'Semua'] as $jabatan)
                         <option value="{{ $jabatan }}" 
-                            {{ old('jabatan', $anggota->jabatan ?? '') == $jabatan ? 'selected' : '' }}>
+                            {{ old('jabatan', $komponenGaji->jabatan ?? '') == $jabatan ? 'selected' : '' }}>
                             {{ $jabatan }}
                         </option>
                     @endforeach
                 </select>
-                @error('jabatan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('nama_belakang') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
 
             <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Status Pernikahan</label>
-                <select name="status_pernikahan" 
+                <label class="mb-1 font-semibold">Nominal</label>
+                <input type="text" name="nominal" 
+                       value="{{ old('gelar_depan', $komponenGaji->nominal ?? '') }}"
+                       class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                @error('nominal') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="flex flex-col">
+                <label class="mb-1 font-semibold">Satuan</label>
+                <select name="satuan" 
                         class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <option value="">-- Pilih Status --</option>
-                    @foreach(['Kawin', 'Belum Kawin', 'Cerai Hidup', 'Cerai Mati'] as $status)
-                        <option value="{{ $status }}" 
-                            {{ old('status_pernikahan', $anggota->status_pernikahan ?? '') == $status ? 'selected' : '' }}>
-                            {{ $status }}
+                    <option value="">-- Pilih satuan --</option>
+                    @foreach(['Bulan','Hari','Periode'] as $satuan)
+                        <option value="{{ $satuan }}"   
+                            {{ old('satuan', $komponenGaji->satuan ?? '') == $satuan ? 'selected' : '' }}>
+                            {{ $satuan }}
                         </option>
                     @endforeach
                 </select>
-                @error('status_pernikahan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
+                @error('satuan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
 
             <div class="flex justify-center mt-4 space-x-3">
@@ -71,7 +69,7 @@
                     Save
                 </button>
 
-                <a href="{{ route('admin.anggota.index') }}" 
+                <a href="{{ route('admin.komponen_gaji.index') }}" 
                    class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-center">
                    Back
                 </a>

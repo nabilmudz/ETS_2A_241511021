@@ -32,17 +32,12 @@ Route::prefix('/auth')->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     })->name('auth.login');
-    Route::get('/register', function () {
-        return view('auth.register');
-    })->name('auth.register');
 });
 
 Route::prefix('/dashboard')->group(function () {
-    
     Route::prefix('/admin')
         ->middleware(['auth', 'role:Admin'])
         ->group(function () {
-            
             Route::get('/', function () {
                 return view('admin.dashboard');
             })->name('admin.dashboard');
@@ -61,10 +56,10 @@ Route::prefix('/dashboard')->group(function () {
                 Route::get('/', [KomponenGajiController::class, 'index'])->name('admin.komponen_gaji.index');
                 Route::get('/create', [KomponenGajiController::class, 'create'])->name('admin.komponen_gaji.create');
                 Route::post('/', [KomponenGajiController::class, 'store'])->name('admin.komponen_gaji.store');
-                Route::get('/{gaji}', [KomponenGajiController::class, 'show'])->name('admin.komponen_gaji.show');
-                Route::get('/{gaji}/edit', [KomponenGajiController::class, 'edit'])->name('admin.komponen_gaji.edit');
-                Route::put('/{gaji}', [KomponenGajiController::class, 'update'])->name('admin.komponen_gaji.update');
-                Route::delete('/{gaji}', [KomponenGajiController::class, 'destroy'])->name('admin.komponen_gaji.destroy'); 
+                Route::get('/{komponenGaji}', [KomponenGajiController::class, 'show'])->name('admin.komponen_gaji.show');
+                Route::get('/{komponenGaji}/edit', [KomponenGajiController::class, 'edit'])->name('admin.komponen_gaji.edit');
+                Route::put('/{komponenGaji}', [KomponenGajiController::class, 'update'])->name('admin.komponen_gaji.update');
+                Route::delete('/{komponenGaji}', [KomponenGajiController::class, 'destroy'])->name('admin.komponen_gaji.destroy'); 
             });
         });
         

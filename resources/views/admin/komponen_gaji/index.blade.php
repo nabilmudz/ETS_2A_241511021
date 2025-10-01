@@ -19,30 +19,30 @@
         <thead>
           <tr class="bg-gray-100 text-left text-gray-700 uppercase text-sm">
             <th class="p-3">Nama Depan</th>
-            <th class="p-3">Nama Belakang</th>
-            <th class="p-3">Gelar Depatn</th>
-            <th class="p-3 text-center">Gelar Belakang</th>
+            <th class="p-3">Nama Komponen</th>
+            <th class="p-3">Kategori</th>
             <th class="p-3 text-center">Jabatan</th>
-            <th class="p-3 text-center">Status Pernikahan</th>
+            <th class="p-3 text-center">Nominal</th>
+            <th class="p-3 text-center">Satuan</th>
             <th class="p-3 text-center">Aksi</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          @forelse($anggota as $p)
+          @forelse($gaji as $p)
           <tr class="hover:bg-gray-50">
             <td class="p-3">{{ $p->nama_depan }}</td>
-            <td class="p-3">{{ $p->nama_belakang }}</td>
-            <td class="p-3">{{ $p->gelar_depan }}</td>
-            <td class="p-3">{{ $p->gelar_belakang }}</td>
+            <td class="p-3">{{ $p->kategori }}</td>
             <td class="p-3">{{ $p->jabatan }}</td>
-            <td class="p-3">{{ $p->status_pernikahan }}</td>
+            <td class="p-3">{{ $p->nominal }}</td>
+            <td class="p-3">{{ $p->jabatan }}</td>
+            <td class="p-3">{{ $p->satuan }}</td>
             <td class="p-3 flex items-center justify-center space-x-2">
-              <a href="{{ route('admin.anggota.show', $p) }}" 
+              <a href="{{ route('admin.komponen_gaji.show', $p) }}" 
                  class="text-blue-600 hover:underline">View</a>
-              <a href="{{ route('admin.anggota.edit', $p) }}" 
+              <a href="{{ route('admin.komponen_gaji.edit', $p) }}" 
                  class="text-yellow-600 hover:underline">Edit</a>
 
-              <form action="{{ route('admin.anggota.destroy', $p) }}" method="POST" 
+              <form action="{{ route('admin.komponen_gaji.destroy', $p) }}" method="POST" 
                     onsubmit="return confirm('Delete?')">
                 @csrf
                 @method('DELETE')

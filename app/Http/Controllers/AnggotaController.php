@@ -78,7 +78,7 @@ class AnggotaController extends Controller
     public function update(Request $request, Anggota $anggota)
     {
         $anggota->update($request->all());
-        return redirect()->route('admin.anggota.index')->with('success', 'anggota updated.');
+        return redirect()->route('admin.anggota.index')->with('success', 'Anggota updated.');
     }
 
     /**
@@ -90,6 +90,6 @@ class AnggotaController extends Controller
     public function destroy(Anggota $anggota)
     {
         $anggota->delete();
-        return redirect()->route('admin.anggota.index')->with('success', 'anggota deleted.');
+        return redirect()->route('admin.anggota.index')->with('success', 'Anggota deleted.');
     }
 }

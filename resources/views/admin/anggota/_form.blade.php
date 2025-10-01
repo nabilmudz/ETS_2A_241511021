@@ -34,7 +34,6 @@
                 @error('gelar_belakang') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>
 
-            {{-- Jabatan Dropdown --}}
             <div class="flex flex-col">
                 <label class="mb-1 font-semibold">Jabatan</label>
                 <select name="jabatan" 
