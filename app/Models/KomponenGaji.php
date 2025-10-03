@@ -15,6 +15,10 @@ class KomponenGaji extends Model
         "nominal",
         "satuan",
     ];
+    public function penggajian()
+    {
+        return $this->hasMany(Penggajian::class);
+    }
     protected $table = "komponen_gaji";  
     protected $primaryKey = "id_komponen_gaji";  
     public $timestamps = false;

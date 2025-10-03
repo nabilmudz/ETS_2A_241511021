@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KomponenGajiController;
+use App\Http\Controllers\PenggajianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +62,17 @@ Route::prefix('/dashboard')->group(function () {
                 Route::put('/{komponenGaji}', [KomponenGajiController::class, 'update'])->name('admin.komponen_gaji.update');
                 Route::delete('/{komponenGaji}', [KomponenGajiController::class, 'destroy'])->name('admin.komponen_gaji.destroy'); 
             });
+
+            Route::prefix('/penggajian')->group(function () {
+                Route::get('/', [PenggajianController::class, 'index'])->name('admin.penggajian.index');
+                Route::get('/create', [PenggajianController::class, 'create'])->name('admin.penggajian.create');
+                Route::post('/', [PenggajianController::class, 'store'])->name('admin.penggajian.store');
+                Route::get('/{id_komponen_gaji}/{id_anggota}', [PenggajianController::class, 'show'])->name('admin.penggajian.show');
+                Route::get('/{id_komponen_gaji}/{id_anggota}/edit', [PenggajianController::class, 'edit'])->name('admin.penggajian.edit');
+                Route::put('/{id_komponen_gaji}/{id_anggota}', [PenggajianController::class, 'update'])->name('admin.penggajian.update');
+                Route::delete('/{id_komponen_gaji}/{id_anggota}', [PenggajianController::class, 'destroy'])->name('admin.penggajian.destroy'); 
+            });
         });
-        
-    Route::prefix('/admin')->group(function () {
-        Route::get('/', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-    });
 
     Route::prefix('/user')->group(function () {
         Route::get('/', function () {

@@ -13,13 +13,16 @@ class Penggajian extends Model
         "id_komponen_gaji",
         "id_anggota",
     ];
-    public function kompenen()
+    protected $table = 'penggajian';
+    protected $primaryKey = 'id_komponen_gaji, id_anggota';
+    public function komponen_gaji()
     {
-        return $this->belongsTo(KomponenGaji::class);
+        return $this->belongsTo(KomponenGaji::class, 'id_komponen_gaji', 'id_komponen_gaji');
     }
+
     public function anggota()
     {
-        return $this->belongsTo(Anggota::class);
+        return $this->belongsTo(Anggota::class, 'id_anggota', 'id_anggota');
     }
     
     public $timestamps = false;
