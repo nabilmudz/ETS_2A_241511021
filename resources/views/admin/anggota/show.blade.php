@@ -4,12 +4,12 @@
             <h1>Detail Anggota</h1>
             
             <div class="card p-4">
-                <p><strong>Nama Depan</strong> {{ $anggota->nama_depan }}</p>
-                <p><strong>Nama Belakang</strong> {{ $anggota->nama_belakang }}</p>
-                <p><strong>Gelar Depan</strong> {{ $anggota->gelar_depan }}</p>
-                <p><strong>Gelar Belakang</strong> {{ $anggota->gelar_belakang }}</p>
-                <p><strong>Jabatan</strong> {{ $anggota->jabatan }}</p>
-                <p><strong>Status Pernikahan</strong> {{ $anggota->status_pernikahan }}</p>
+                <p><strong>Nama Depan: </strong> {{ $anggota->nama_depan }}</p>
+                <p><strong>Nama Belakang: </strong> {{ $anggota->nama_belakang }}</p>
+                <p><strong>Gelar Depan: </strong> {{ $anggota->gelar_depan }}</p>
+                <p><strong>Gelar Belakang: </strong> {{ $anggota->gelar_belakang }}</p>
+                <p><strong>Jabatan: </strong> {{ $anggota->jabatan }}</p>
+                <p><strong>Status Pernikahan: </strong> {{ $anggota->status_pernikahan }}</p>
             </div>
             
             <div class="mt-4 flex space-x-3">

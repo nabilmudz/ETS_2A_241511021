@@ -4,11 +4,11 @@
             <h1>Detail Gaji</h1>
             
             <div class="card p-4">
-                <p><strong>Nama Komponen</strong> {{ $komponenGaji->nama_depan }}</p>
-                <p><strong>Kategori</strong> {{ $komponenGaji->kategori }}</p>
-                <p><strong>Jabatan</strong> {{ $komponenGaji->jabatan }}</p>
-                <p><strong>Nominal</strong> {{ $komponenGaji->nominal }}</p>
-                <p><strong>Satuan</strong> {{ $komponenGaji->satuan }}</p>
+                <p><strong>Nama Komponen: </strong> {{ $komponenGaji->nama_depan }}</p>
+                <p><strong>Kategori: </strong> {{ $komponenGaji->kategori }}</p>
+                <p><strong>Jabatan: </strong> {{ $komponenGaji->jabatan }}</p>
+                <p><strong>Nominal: </strong> {{ $komponenGaji->nominal }}</p>
+                <p><strong>Satuan: </strong> {{ $komponenGaji->satuan }}</p>
             </div>
             
             <div class="mt-4 flex space-x-3">
