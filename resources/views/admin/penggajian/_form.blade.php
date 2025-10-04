@@ -1,79 +1,59 @@
 @csrf
-<div class="flex items-center justify-center h-screen px-4">
-    <div class="w-full max-w-lg bg-white p-6 rounded-lg shadow">
-        <h1 class="text-2xl font-bold mb-6 text-center">Form Komponen Gaji</h1>
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Nama Komponen</label>
-                <input type="text" name="nama_depan" 
-                       value="{{ old('nama_depan', $komponenGaji->nama_depan ?? '') }}"
-                       class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                @error('nama_depan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
+@vite(['resources/js/komponenGaji.js'])
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-6">Tambah Penggajian</h1>
 
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Kategori</label>
-                <select name="kategori" 
-                        class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <option value="">-- Pilih Kategori --</option>
-                    @foreach(['Gaji Pokok','Tunjangan Melekat','Tunjangan Lain'] as $kategori)
-                        <option value="{{ $kategori }}" 
-                            {{ old('kategori', $komponenGaji->kategori ?? '') == $kategori ? 'selected' : '' }}>
-                            {{ $kategori }}
+    <form action="{{ route('admin.penggajian.store') }}" method="POST" class="space-y-6">
+        @csrf
+
+        <div>
+            <label for="id_anggota" class="block font-medium">Pilih Anggota</label>
+            @if(isset($penggajian)) 
+                <input type="text" 
+                    class="border p-2 rounded w-full bg-gray-100" 
+                    value="{{ $penggajian->anggota->nama_depan }} {{ $penggajian->anggota->nama_belakang }} ({{ $penggajian->anggota->jabatan }})" 
+                    disabled>
+
+                <input type="hidden" id="anggota-selected" 
+                    name="id_anggota" 
+                    value="{{ $penggajian->id_anggota }}" 
+                    data-jabatan="{{ $penggajian->anggota->jabatan }}">
+            @else
+                <select name="id_anggota" id="anggota-select" class="border p-2 rounded w-full">
+                    <option value="">-- Pilih Anggota --</option>
+                    @foreach($anggota as $a)
+                        <option value="{{ $a->id_anggota }}" 
+                                data-jabatan="{{ $a->jabatan }}"
+                                {{ old('id_anggota') == $a->id_anggota ? 'selected' : '' }}>
+                            {{ $a->nama_depan }} {{ $a->nama_belakang }} ({{ $a->jabatan }})
                         </option>
                     @endforeach
                 </select>
-                @error('nama_belakang') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
+            @endif  
+            @error('id_anggota') 
+                <p class="text-red-600 text-sm">{{ $message }}</p> 
+            @enderror
+        </div>
 
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Jabatan</label>
-                <select name="jabatan" 
-                        class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <option value="">-- Pilih Jabatan --</option>
-                    @foreach(['Ketua','Wakil Ketua','komponenGaji', 'Semua'] as $jabatan)
-                        <option value="{{ $jabatan }}" 
-                            {{ old('jabatan', $komponenGaji->jabatan ?? '') == $jabatan ? 'selected' : '' }}>
-                            {{ $jabatan }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('nama_belakang') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
+        <div>
+            <label for="id_komponen_gaji" class="block font-medium">Pilih Komponen Gaji</label>
+            <select name="id_komponen_gaji" id="komponen-select" class="border p-2 rounded w-full mt-2">
+                <option value="">-- Pilih Komponen --</option>
+            </select>
 
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Nominal</label>
-                <input type="text" name="nominal" 
-                       value="{{ old('gelar_depan', $komponenGaji->nominal ?? '') }}"
-                       class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
-                @error('nominal') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
+            @error('id_komponen_gaji') 
+                <p class="text-red-600 text-sm">{{ $message }}</p> 
+            @enderror
+        </div>
 
-            <div class="flex flex-col">
-                <label class="mb-1 font-semibold">Satuan</label>
-                <select name="satuan" 
-                        class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
-                    <option value="">-- Pilih satuan --</option>
-                    @foreach(['Bulan','Hari','Periode'] as $satuan)
-                        <option value="{{ $satuan }}"   
-                            {{ old('satuan', $komponenGaji->satuan ?? '') == $satuan ? 'selected' : '' }}>
-                            {{ $satuan }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('satuan') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
-            </div>
-
-            <div class="flex justify-center mt-4 space-x-3">
-                <button type="submit" 
-                        class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Save
-                </button>
-
-                <a href="{{ route('admin.komponen_gaji.index') }}" 
-                   class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 text-center">
-                   Back
-                </a>
-            </div>
-        </form>
-    </div>
+        <div class="flex justify-end space-x-3">
+            <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Save
+            </button>
+            <a href="{{ route('admin.penggajian.index') }}" 
+                class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                Back
+            </a>
+        </div>
+    </form>
 </div>

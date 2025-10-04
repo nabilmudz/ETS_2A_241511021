@@ -61,6 +61,7 @@ Route::prefix('/dashboard')->group(function () {
                 Route::get('/{komponenGaji}/edit', [KomponenGajiController::class, 'edit'])->name('admin.komponen_gaji.edit');
                 Route::put('/{komponenGaji}', [KomponenGajiController::class, 'update'])->name('admin.komponen_gaji.update');
                 Route::delete('/{komponenGaji}', [KomponenGajiController::class, 'destroy'])->name('admin.komponen_gaji.destroy'); 
+                Route::get('/by-jabatan/{jabatan}', [KomponenGajiController::class, 'showByJabatan'])->name('admin.komponen_gaji.showByJabatan');
             });
 
             Route::prefix('/penggajian')->group(function () {

@@ -1,7 +1,7 @@
 <x-app-layout>
-    <form action="{{ route('admin.komponen_gaji.update', $komponenGaji) }}" method="post">
+    <form action="{{ route('admin.penggajian.update', [$penggajian->id_komponen_gaji, $penggajian->id_anggota]) }}" method="post">
         @csrf
         @method('PUT')
-        @include('admin.komponen_gaji._form')
+        @include('admin.penggajian._form')
     </form>
 </x-app-layout>

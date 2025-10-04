@@ -18,7 +18,7 @@
       <table class="w-full border-2 border-black rounded-lg shadow">
         <thead>
           <tr class="bg-gray-100 text-left text-gray-700 uppercase text-sm">
-            <th class="p-3">ID Komponen</th>
+            <th class="p-3">No</th>
             <th class="p-3">ID Anggota</th>
             <th class="p-3">Nama Anggota</th>
             <th class="p-3 text-center">Jabatan</th>
@@ -31,7 +31,7 @@
         <tbody class="divide-y divide-gray-200">
           @forelse($penggajian as $p)
           <tr class="hover:bg-gray-50">
-            <td class="p-3">{{ $p->id_komponen_gaji }}</td>
+            <td class="p-3">{{ $loop->iteration }}</td>
             <td class="p-3">{{ $p->id_anggota }}</td>
             <td class="p-3">{{ $p->anggota->nama_depan . ' ' . $p->anggota->nama_belakang . ' ' . $p->anggota->gelar_depan . ' ' . $p->anggota->gelar_belakang}}</td>
             <td class="p-3">{{ $p->anggota->jabatan }}</td>

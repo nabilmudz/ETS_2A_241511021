@@ -14,7 +14,11 @@ class Penggajian extends Model
         "id_anggota",
     ];
     protected $table = 'penggajian';
-    protected $primaryKey = 'id_komponen_gaji, id_anggota';
+    protected $primaryKey = null;
+    public $incrementing = false;
+
+    public $timestamps = false;
+
     public function komponen_gaji()
     {
         return $this->belongsTo(KomponenGaji::class, 'id_komponen_gaji', 'id_komponen_gaji');
@@ -25,5 +29,4 @@ class Penggajian extends Model
         return $this->belongsTo(Anggota::class, 'id_anggota', 'id_anggota');
     }
     
-    public $timestamps = false;
 }

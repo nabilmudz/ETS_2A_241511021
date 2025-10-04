@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KomponenGaji;
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 
 class KomponenGajiController extends Controller
@@ -44,6 +45,14 @@ class KomponenGajiController extends Controller
     {
         KomponenGaji::create($request->all());
         return redirect()->route('admin.komponen_gaji.index')->with('success', 'Komponen Gaji created.');
+    }
+
+    public function showByJabatan($jabatan){
+        $komponen = KomponenGaji::where('jabatan',$jabatan)
+            ->orWhere('jabatan', 'Semua')
+            ->get();
+
+        return response()->json($komponen);
     }
 
     /**

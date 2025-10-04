@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Penggajian;
 use Illuminate\Http\Request;
+use App\Models\Anggota;
+use App\Models\KomponenGaji;
 
 class PenggajianController extends Controller
 {
@@ -31,7 +33,9 @@ class PenggajianController extends Controller
      */
     public function create()
     {
-        return view('admin.penggajian.create');
+        $anggota = Anggota::all();
+        $komponen = KomponenGaji::all();
+        return view('admin.penggajian.create', compact('anggota', 'komponen'));
     }
 
     /**
@@ -66,9 +70,14 @@ class PenggajianController extends Controller
      * @param  \App\Models\Penggajian  $penggajian
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penggajian $penggajian)
+    public function edit($id_komponen_gaji, $id_anggota)
     {
-        return view('admin.penggajian.update', compact('penggajian'));
+        $penggajian = Penggajian::where('id_komponen_gaji', $id_komponen_gaji)
+                        ->where('id_anggota', $id_anggota)
+                        ->firstOrFail();
+
+        $komponen = KomponenGaji::all();
+        return view('admin.penggajian.update', compact('penggajian', 'komponen'));
     }
 
     /**
@@ -78,9 +87,12 @@ class PenggajianController extends Controller
      * @param  \App\Models\Penggajian  $penggajian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Penggajian $penggajian)
+    public function update(Request $request, $id_komponen_gaji, $id_anggota)
     {
-        $penggajian->update($request->all());
+        Penggajian::where('id_komponen_gaji', $id_komponen_gaji)
+            ->where('id_anggota', $id_anggota)
+            ->update(['id_komponen_gaji' => $request->id_komponen_gaji]);
+
         return redirect()->route('admin.penggajian.index')->with('success', 'Penggajian Updated');
     }
 
@@ -90,9 +102,11 @@ class PenggajianController extends Controller
      * @param  \App\Models\Penggajian  $penggajian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penggajian $penggajian)
+    public function destroy($id_komponen_gaji, $id_anggota)
     {
-        $penggajian->delete();
+        Penggajian::where('id_komponen_gaji', $id_komponen_gaji)
+            ->where('id_anggota', $id_anggota)
+            ->delete();
         return redirect()->route('admin.penggajian.index')->with('success','Penggajian Deleted');
     }
 }
