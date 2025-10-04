@@ -21,7 +21,7 @@ class Anggota extends Model
     protected $primaryKey = 'id_anggota';
     public function penggajian()
     {
-        return $this->hasMany(Penggajian::class);
+        return $this->hasMany(Penggajian::class, 'id_anggota', 'id_anggota');
     }
     
     public $timestamps = false;

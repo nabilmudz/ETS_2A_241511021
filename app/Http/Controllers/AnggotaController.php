@@ -18,9 +18,22 @@ class AnggotaController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $anggota = Anggota::all();
+        $query = Anggota::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                    $q->orWhere('nama_depan', 'like', "%{$search}%")
+                        ->orWhere('nama_belakang', 'like', "%{$search}%")
+                        ->orWhere('jabatan', 'like', "%{$search}%")
+                        ->orWhere('id_anggota', 'like', "%{$search}%");
+                });
+        }
+
+        $anggota = $query->paginate(10)->withQueryString();
         return view('admin.anggota.index', compact('anggota'));
     }
 

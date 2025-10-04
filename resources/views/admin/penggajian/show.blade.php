@@ -11,6 +11,7 @@
                 <p class="p-3"><strong>Nama Komponen: </strong>{{ $penggajian->komponen_gaji->nama_depan }}</p>
                 <p class="p-3"><strong>Kategori: </strong>{{ $penggajian->komponen_gaji->kategori }}</p>
                 <p class="p-3"><strong>Nominal: </strong>{{ $penggajian->komponen_gaji->nominal }}</p>
+                <p class="p-3"><strong>Take Home Pay: </strong>{{ $penggajian->take_home_pay }}</p>
             </div>
             
             <div class="mt-4 flex space-x-3">

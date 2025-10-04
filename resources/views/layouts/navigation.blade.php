@@ -18,13 +18,24 @@
                     <x-nav-link :href="route('admin.komponen_gaji.index')" :active="request()->routeIs('komponen_gaji.*')">
                         {{ __('Komponen Gaji') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.penggajian.index')" :active="request()->routeIs('penggajian.*')">
+                        {{ __('Penggajian') }}
+                    </x-nav-link>
                 </div>
                 @endif
 
-                @if(Auth::user()->role === 'user')
-                    <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                @if(Auth::user()->role === 'Public')
+                    <div class=" gap-8 mt-4">
+                        <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.anggota.index')" :active="request()->routeIs('anggota.*')">
+                            {{ __('Anggota') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.penggajian.index')" :active="request()->routeIs('penggajian.*')">
+                            {{ __('Penggajian') }}
+                        </x-nav-link>
+                    </div>
                 @endif
             </div>
 

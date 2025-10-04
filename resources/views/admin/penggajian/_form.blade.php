@@ -29,7 +29,7 @@
                         </option>
                     @endforeach
                 </select>
-            @endif  
+            @endif
             @error('id_anggota') 
                 <p class="text-red-600 text-sm">{{ $message }}</p> 
             @enderror

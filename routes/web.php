@@ -75,10 +75,14 @@ Route::prefix('/dashboard')->group(function () {
             });
         });
 
-    Route::prefix('/user')->group(function () {
+    Route::prefix('/public')
+        ->middleware(['auth', 'role:Public'])
+        ->group(function () {
         Route::get('/', function () {
             return view('user.dashboard');
         })->name('user.dashboard');
+        Route::get('/anggota-dpr', [AnggotaController::class, 'index'])->name('admin.anggota.index');
+        Route::get('/gaji-dpr', [PenggajianController::class, 'index'])->name('admin.penggajian.index');
     });
 })->middleware(['auth', 'verified'])->name('dashboard');
 

@@ -19,9 +19,24 @@ class KomponenGajiController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $gaji = KomponenGaji::all();
+        $query = KomponenGaji::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                    $q->orWhere('nama_depan', 'like', "%{$search}%")
+                        ->orWhere('kategori', 'like', "%{$search}%")
+                        ->orWhere('jabatan', 'like', "%{$search}%")
+                        ->orWhere('nominal', 'like', "%{$search}%")
+                        ->orWhere('satuan', 'like', "%{$search}%")
+                        ->orWhere('id_komponen_gaji', 'like', "%{$search}%");
+                });
+        }
+
+        $gaji = $query->paginate(10)->withQueryString();
         return view('admin.komponen_gaji.index', compact('gaji'));
     }
 

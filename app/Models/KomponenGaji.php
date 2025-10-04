@@ -9,7 +9,7 @@ class KomponenGaji extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "nama_komponen",
+        "nama_depan",
         "kategori",
         "jabatan",
         "nominal",

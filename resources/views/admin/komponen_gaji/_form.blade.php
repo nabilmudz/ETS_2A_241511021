@@ -42,8 +42,8 @@
 
             <div class="flex flex-col">
                 <label class="mb-1 font-semibold">Nominal</label>
-                <input type="text" name="nominal" 
-                       value="{{ old('gelar_depan', $komponenGaji->nominal ?? '') }}"
+                <input type="number" name="nominal" 
+                       value="{{ old('nominal', $komponenGaji->nominal ?? '') }}"
                        class="p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
                 @error('nominal') <div class="text-red-500 text-sm mt-1">{{ $message }}</div> @enderror
             </div>

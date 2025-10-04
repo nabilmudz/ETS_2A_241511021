@@ -20,11 +20,42 @@ class PenggajianController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $penggajian = Penggajian::all();
+        $query = Penggajian::with(['anggota', 'komponen_gaji']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->whereHas('anggota', function ($q) use ($search) {
+                $q->where('nama_depan', 'like', "%{$search}%")
+                ->orWhere('nama_belakang', 'like', "%{$search}%")
+                ->orWhere('jabatan', 'like', "%{$search}%")
+                ->orWhere('id_anggota', 'like', "%{$search}%");
+            });
+        }
+
+        $penggajian = $query->paginate(10);
+
+        
+        $penggajian->getCollection()->transform(function ($p) {
+            $nominalPasangan = KomponenGaji::where('nama_depan', 'Tunjangan Istri/Suami')->value('nominal');
+            $nominalAnak = KomponenGaji::where('nama_depan', 'Tunjangan Anak')->value('nominal');
+            $base = $p->komponen_gaji ? $p->komponen_gaji->nominal : 0;
+
+            $tunjanganPasangan = $p->anggota->status_pernikahan === 'Kawin' ? $nominalPasangan : 0;
+
+            $anakDihitung = min($p->anggota->jumlah_anak, 2);
+            $tunjanganAnak = $anakDihitung * $nominalAnak;
+
+            $p->take_home_pay = $base + $tunjanganPasangan + $tunjanganAnak;
+
+            return $p;
+        });
+
         return view('admin.penggajian.index', compact('penggajian'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -61,6 +92,20 @@ class PenggajianController extends Controller
         $penggajian = Penggajian::where('id_komponen_gaji', $id_komponen_gaji)
                                 ->where('id_anggota', $id_anggota)
                                 ->firstOrFail();
+                                
+        $nominalPasangan = KomponenGaji::where('nama_depan', 'Tunjangan Istri/Suami')->value('nominal') ?? 0;
+        $nominalAnak = KomponenGaji::where('nama_depan', 'Tunjangan Anak')->value('nominal') ?? 0;
+
+        $base = $penggajian->komponen_gaji ? $penggajian->komponen_gaji->nominal : 0;
+
+        $tunjanganPasangan = $penggajian->anggota->status_pernikahan === 'Kawin' 
+            ? $nominalPasangan 
+            : 0;
+
+        $anakDihitung = min($penggajian->anggota->jumlah_anak, 2);
+        $tunjanganAnak = $anakDihitung * $nominalAnak;
+
+        $penggajian->take_home_pay = $base + $tunjanganPasangan + $tunjanganAnak;
         return view('admin.penggajian.show', compact('penggajian'));
     }
 
